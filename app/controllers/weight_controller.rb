@@ -8,7 +8,7 @@ class WeightController < ApplicationController
     if weight.save
       render json: weight, status: :created
     else
-      render json: {errors: weight.errors}, status: :unprocessable_entity
+      render json: { errors: weight.errors }, status: :unprocessable_entity
     end
   end
 
