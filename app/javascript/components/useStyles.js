@@ -30,6 +30,7 @@ export default makeStyles(theme => ({
     margin: '94px auto 0',
     padding: 20,
     width: 300,
+    maxWidth: '80%',
     height: 300,
     background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
     textAlign: 'center',
@@ -52,6 +53,7 @@ export default makeStyles(theme => ({
         borderColor: theme.palette.gray,
       },
     },
+    maxWidth: 'calc(100% - 81px)',
   },
 
   button: {
