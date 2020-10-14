@@ -9,7 +9,6 @@ const Weight = ({ totalWeight, updateWeight }) => {
   const classes = useStyles();
 
   const handleSubmit = () => {
-    console.log('submit', weight);
     if (weight) {
       updateWeight(weight)
     } else {
@@ -43,7 +42,8 @@ const Weight = ({ totalWeight, updateWeight }) => {
           <Button variant="contained" className={classes.button} onClick={() => handleSubmit()}>Add</Button>
         </div>
         <div>
-          Total Weight: {totalWeight}
+          Total Weight
+          <p className={classes.weightNumber}>{totalWeight} pounds</p>
         </div>
       </div>
     </>

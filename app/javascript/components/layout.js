@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import useStyles from './useStyles';
 
-const Layout = ({ children, background }) => {
+const Layout = ({ children, photo }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -49,9 +49,21 @@ const Layout = ({ children, background }) => {
           </Typography>
         </Toolbar>
       </AppBar>
-      {renderMenu}
-      <div className={classes.body} style={{backgroundImage: `url(${background})`}}>
+      {/* {renderMenu} */}
+      <div className={classes.body} style={photo && {backgroundImage: `url(${photo.urls.regular})`}}>
         {children}
+        {photo && 
+            <div className={classes.unsplash}>
+              Photo by{' '}
+              <a href={`${photo.user.links.html}?utm_source=compost&utm_medium=referral`}>
+                {photo.user.name}
+              </a>
+              {' '}on {' '}
+              <a href="https://unsplash.com/?utm_source=compost&utm_medium=referral">
+                Unsplash
+              </a>
+            </div>
+          }
       </div>
     </>
   );

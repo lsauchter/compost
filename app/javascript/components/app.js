@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
+import Typography from '@material-ui/core/Typography'
 import theme from './theme';
 
 import Layout from './layout';
@@ -7,12 +8,11 @@ import Weight from './weight';
 
 const App = () => {
   const [totalWeight, updateTotalWeight] = useState(null)
-  const [photoUrl, updatePhotoUrl] = useState(null);
+  const [photo, updatePhoto] = useState(null);
 
   const getWeight = () => {
     fetch('weight', { method: 'GET' }).then(response => response.json())
     .then(res => {
-      console.log('res', res);
       updateTotalWeight(res);
     });
   };
@@ -25,8 +25,7 @@ const App = () => {
       },
     }).then(response => response.json())
     .then(res => {
-      console.log('photo res', res);
-      updatePhotoUrl(res.urls.regular)
+      updatePhoto(res)
     });
   };
 
@@ -43,17 +42,18 @@ const App = () => {
         'Content-Type': 'application/json'
       },
     }).then(response => response.json())
-    .then(res => {
-      console.log('res', res);
+    .then(() => {
       getWeight();
     });
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <Layout background={photoUrl}>
-        <Weight totalWeight={totalWeight} updateWeight={onUpdateWeight}/>
-      </Layout>
+      <Typography component="div">
+        <Layout photo={photo}>
+          <Weight totalWeight={totalWeight} updateWeight={onUpdateWeight}/>
+        </Layout>
+      </Typography>
     </ThemeProvider>
   );
 }

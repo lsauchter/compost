@@ -14,7 +14,6 @@ export default makeStyles(theme => ({
   },
 
   title: {
-    fontSize: 18,
     margin: 'auto',
     paddingRight: 48,
   },
@@ -23,6 +22,8 @@ export default makeStyles(theme => ({
     height: '100vh',
     backgroundSize: 'cover',
     overflow: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   weightCard: {
@@ -57,5 +58,29 @@ export default makeStyles(theme => ({
     color: theme.palette.darkGreen,
     height: 56,
     marginLeft: 15,
-  }
+  },
+
+  weightNumber: {
+    fontWeight: 600,
+    fontSize: 20,
+    marginBottom: 0,
+  },
+
+  unsplash: {
+    position: 'fixed',
+    bottom: 10,
+    color: theme.palette.darkGreen,
+    background: `linear-gradient(${theme.palette.gray}bb, ${theme.palette.gray}bb)`,
+    padding: '5px 10px',
+    borderRadius: 8,
+    fontSize: 12,
+    '& a': {
+      display: 'inline-block',
+      color: theme.palette.blue,
+    },
+    '& p': {
+      display: 'inline-block',
+      margin: 0,
+    },
+  },
 }));

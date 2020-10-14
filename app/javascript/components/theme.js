@@ -5,7 +5,19 @@ const theme = createMuiTheme({
     darkGreen: '#1e352f',
     lightGreen: '#335145',
     gray: '#eeeeee',
-    blue: '#5c9ead',
+    blue: '#2E6F9E',
+  },
+  typography: {
+    fontSize: 16,
+    fontFamily: '"Raleway", "Caveat"',
+    h1: {
+      fontSize: 40,
+      fontWeight: 500,
+      fontFamily: 'Caveat',
+    },
+    body1: {
+      fontFamily: 'Raleway',
+    },
   },
 });
 
