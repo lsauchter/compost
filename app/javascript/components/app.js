@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import theme from './theme';
 
 import Layout from './layout';
-import Weight from './weight';
+import WeightForm from './weightForm';
+import WeightData from './weightData';
 
 const App = () => {
   const [totalWeight, updateTotalWeight] = useState(null);
   const [photo, updatePhoto] = useState(null);
 
   const getWeight = () => {
-    fetch('weight', { method: 'GET' })
+    fetch('weight/all', { method: 'GET' })
       .then((response) => response.json())
       .then((res) => {
         updateTotalWeight(res);
@@ -50,13 +52,25 @@ const App = () => {
       });
   };
 
+  function renderMainRoutes() {
+    return (
+      <Switch>
+        <Route exact path="/">
+          <WeightForm totalWeight={totalWeight} updateWeight={onUpdateWeight} />
+        </Route>
+        <Route path="/history" component={WeightData} />
+        <Route render={() => <h1>Page not found</h1>} />
+      </Switch>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Typography component="div">
-        <Layout photo={photo}>
-          <Weight totalWeight={totalWeight} updateWeight={onUpdateWeight} />
-        </Layout>
-      </Typography>
+      <BrowserRouter>
+        <Typography component="div">
+          <Layout photo={photo}>{renderMainRoutes()}</Layout>
+        </Typography>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

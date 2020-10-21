@@ -16,6 +16,8 @@ export default makeStyles((theme) => ({
   title: {
     margin: 'auto',
     paddingRight: 48,
+    color: theme.palette.gray,
+    textDecoration: 'none',
   },
 
   body: {
@@ -24,6 +26,11 @@ export default makeStyles((theme) => ({
     overflow: 'auto',
     display: 'flex',
     justifyContent: 'center',
+  },
+
+  navLink: {
+    textDecoration: 'none',
+    color: theme.palette.darkGreen,
   },
 
   weightCard: {
@@ -83,6 +90,29 @@ export default makeStyles((theme) => ({
     '& p': {
       display: 'inline-block',
       margin: 0,
+    },
+  },
+
+  weightData: {
+    margin: '94px auto 50px',
+    padding: 20,
+    maxWidth: '80%',
+    background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
+    textAlign: 'center',
+    borderRadius: 8,
+  },
+
+  table: {
+    color: theme.palette.gray,
+    '& th': {
+      color: theme.palette.gray,
+      fontWeight: 600,
+    },
+    '& td': {
+      color: theme.palette.gray,
+    },
+    '& button': {
+      color: theme.palette.gray,
     },
   },
 }));

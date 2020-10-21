@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   constraints format: :json do
-    resources :weight, only: %i[index create update destroy]
+    resources :weight, only: %i[index show create update destroy]
   end
+
+  match "*path", to: 'home#index', via: :all
 end

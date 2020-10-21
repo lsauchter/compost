@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-const Weight = ({ totalWeight, updateWeight }) => {
+const WeightForm = ({ totalWeight, updateWeight }) => {
   const [weight, updateFormWeight] = useState('');
   const [errors, updateErrors] = useState(null);
   const classes = useStyles();
@@ -42,11 +42,7 @@ const Weight = ({ totalWeight, updateWeight }) => {
             className={classes.weightForm}
             helperText={errors}
           />
-          <Button
-            variant="contained"
-            className={classes.button}
-            onClick={() => handleSubmit()}
-          >
+          <Button variant="contained" className={classes.button} onClick={() => handleSubmit()}>
             Add
           </Button>
         </div>
@@ -59,13 +55,13 @@ const Weight = ({ totalWeight, updateWeight }) => {
   );
 };
 
-Weight.propTypes = {
-  totalWeight: PropTypes.number,
+WeightForm.propTypes = {
+  totalWeight: PropTypes.string,
   updateWeight: PropTypes.func.isRequired,
 };
 
-Weight.defaultProps = {
-  totalWeight: null,
+WeightForm.defaultProps = {
+  totalWeight: '',
 };
 
-export default Weight;
+export default WeightForm;

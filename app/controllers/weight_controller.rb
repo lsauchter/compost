@@ -1,5 +1,14 @@
 class WeightController < ApplicationController
   def index
+    data = Weight.order(created_at: :desc)
+    json = {
+      data: data
+    }
+
+    respond_with json
+  end
+
+  def show
     respond_with total, location: nil
   end
 
