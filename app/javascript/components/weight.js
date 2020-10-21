@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { TextField, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
@@ -10,14 +11,15 @@ const Weight = ({ totalWeight, updateWeight }) => {
 
   const handleSubmit = () => {
     if (weight) {
-      updateWeight(weight)
+      updateWeight(weight);
+      updateFormWeight('');
     } else {
       updateErrors('Please enter a weight');
       setTimeout(() => updateErrors(null), 10000);
     }
-  }
+  };
 
-  const handlePressEnter = event => {
+  const handlePressEnter = (event) => {
     if (event.key === 'Enter') {
       handleSubmit();
     }
@@ -35,11 +37,18 @@ const Weight = ({ totalWeight, updateWeight }) => {
             InputProps={{
               onKeyPress: handlePressEnter,
             }}
-            onChange={e => updateFormWeight(e.target.value)}
+            value={weight}
+            onChange={(e) => updateFormWeight(e.target.value)}
             className={classes.weightForm}
             helperText={errors}
           />
-          <Button variant="contained" className={classes.button} onClick={() => handleSubmit()}>Add</Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => handleSubmit()}
+          >
+            Add
+          </Button>
         </div>
         <div>
           Total Weight
@@ -48,6 +57,15 @@ const Weight = ({ totalWeight, updateWeight }) => {
       </div>
     </>
   );
+};
+
+Weight.propTypes = {
+  totalWeight: PropTypes.number,
+  updateWeight: PropTypes.func.isRequired,
+};
+
+Weight.defaultProps = {
+  totalWeight: null,
 };
 
 export default Weight;
