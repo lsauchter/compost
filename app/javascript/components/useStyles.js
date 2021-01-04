@@ -94,7 +94,7 @@ export default makeStyles((theme) => ({
   },
 
   weightData: {
-    margin: '94px auto 90px',
+    margin: '94px auto 150px',
     padding: 20,
     maxWidth: '80%',
     background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
