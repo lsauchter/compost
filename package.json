@@ -3,7 +3,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint app/javascript"
+    "lint": "eslint app/javascript",
+    "start": "foreman start -f Procfile.dev"
   },
   "dependencies": {
     "@babel/preset-react": "^7.10.4",

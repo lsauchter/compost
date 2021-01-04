@@ -10,6 +10,5 @@ Be sure to copy the sample.env and save it as .env. Then, make any updates neede
 * `rake db:migrate` (may not be required)
 * `rake load_csv`
 
-## Starting via foreman 
-
-`foreman start -f Procfile.dev`
+## Starting with foreman 
+You can either run `npm start` or `foreman start -f Procfile.dev`

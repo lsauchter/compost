@@ -102,11 +102,18 @@ export default makeStyles((theme) => ({
     borderRadius: 8,
   },
 
+  tableContainer: {
+    height: '100%',
+    overflow: 'scroll',
+  },
+
   table: {
     color: theme.palette.gray,
+    borderRadius: 8,
     '& th': {
       color: theme.palette.gray,
       fontWeight: 600,
+      background: theme.palette.darkGreen,
     },
     '& td': {
       color: theme.palette.gray,

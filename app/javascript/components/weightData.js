@@ -49,34 +49,42 @@ const WeightData = () => {
     <>
       <div className={classes.weightData}>
         {errors && <div className={classes.error}>{errors}</div>}
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Weight</TableCell>
-              <TableCell align="left">Date Added</TableCell>
-              <TableCell align="left">Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data.map((item) => {
-                const dataDate = new Date(item.created_at);
-                const formattedDate = dataDate.toLocaleString('en-US', { timezone: 'EST" ' });
+        <div className={classes.tableContainer}>
+          <Table stickyHeader className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell align="left">Weight</TableCell>
+                <TableCell align="left">Date Added</TableCell>
+                <TableCell align="left">Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data.map((item) => {
+                  const dataDate = new Date(item.created_at);
+                  const formattedDate = dataDate
+                    .toLocaleString('en-US', { timezone: 'EST" ' })
+                    .split(', ');
 
-                return (
-                  <TableRow hover key={item.id}>
-                    <TableCell align="left">{item.amount}</TableCell>
-                    <TableCell align="left">{formattedDate}</TableCell>
-                    <TableCell>
-                      <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
+                  return (
+                    <TableRow hover key={item.id}>
+                      <TableCell align="left">{item.amount}</TableCell>
+                      <TableCell align="left">
+                        {formattedDate[0]}
+                        <br />
+                        {formattedDate[1]}
+                      </TableCell>
+                      <TableCell>
+                        <IconButton aria-label="delete" onClick={() => handleDelete(item.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </>
   );
