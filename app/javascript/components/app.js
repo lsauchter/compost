@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import theme from './theme';
 
+import Landing from './landing';
 import Layout from './layout';
+import SignIn from './signIn';
 import WeightForm from './weightForm';
 import WeightData from './weightData';
 
-const App = () => {
+const App = ({ userId }) => {
   const [weightInfo, updateWeightInfo] = useState(null);
   const [photo, updatePhoto] = useState(null);
 
@@ -56,14 +59,22 @@ const App = () => {
     return (
       <Switch>
         <Route exact path="/">
-          <WeightForm
-            totalWeight={weightInfo?.total}
-            averageWeight={weightInfo?.average}
-            updateWeight={onUpdateWeight}
-          />
+          <Landing user={userId} />
         </Route>
-        <Route path="/history" component={WeightData} />
-        <Route render={() => <h1>Page not found</h1>} />
+        <Route path="/users/sign_in" component={SignIn} />
+        {userId ? (
+          <Route path="/home">
+            <WeightForm
+              totalWeight={weightInfo?.total}
+              averageWeight={weightInfo?.average}
+              updateWeight={onUpdateWeight}
+            />
+          </Route>
+        ) : (
+          <Redirect to="/" />
+        )}
+        {userId ? <Route path="/history" component={WeightData} /> : <Redirect exact to="/" />}
+        <Route render={() => <h1 style={{ marginTop: 94 }}>Page not found</h1>} />
       </Switch>
     );
   }
@@ -77,6 +88,14 @@ const App = () => {
       </BrowserRouter>
     </ThemeProvider>
   );
+};
+
+App.propTypes = {
+  userId: PropTypes.number,
+};
+
+App.defaultProps = {
+  userId: null,
 };
 
 export default App;

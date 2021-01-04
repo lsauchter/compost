@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  def index; end
+  before_action :authenticate_user!, only: [:app]
+  def index
+  end
+
+  def app
+  end
 end

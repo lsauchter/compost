@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+  get '/app', to: 'home#app', as: 'app'
+  match '/history', to: 'home#app', via: :all
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
 

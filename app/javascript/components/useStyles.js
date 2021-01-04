@@ -71,8 +71,8 @@ export default makeStyles((theme) => ({
 
   weightNumber: {
     fontWeight: 600,
-    fontSize: 20,
     margin: '10px 0 0',
+    fontSize: theme.typography.pxToRem(20),
   },
 
   unsplash: {
@@ -82,7 +82,7 @@ export default makeStyles((theme) => ({
     background: `linear-gradient(${theme.palette.gray}bb, ${theme.palette.gray}bb)`,
     padding: '5px 10px',
     borderRadius: 8,
-    fontSize: 12,
+    fontSize: theme.typography.pxToRem(12),
     '& a': {
       display: 'inline-block',
       color: theme.palette.blue,

@@ -4,12 +4,8 @@ class WeightController < ApplicationController
   WEEK_SECONDS = 604_800
 
   def index
-    data = Weight.order(created_at: :desc)
-    json = {
-      data: data
-    }
-
-    respond_with json
+    data = current_user.weights.order(created_at: :desc)
+    render json: data
   end
 
   def show
@@ -21,7 +17,7 @@ class WeightController < ApplicationController
   end
 
   def create
-    weight = Weight.new(weight_params)
+    weight = current_user.weights.new(weight_params)
     if weight.save
       render json: weight, status: :created
     else
@@ -42,7 +38,7 @@ class WeightController < ApplicationController
   private
 
   def weight_resource
-    Weight.find(params[:id])
+    current_user.weights.find(params[:id])
   end
 
   def weight_params
@@ -50,7 +46,7 @@ class WeightController < ApplicationController
   end
 
   def total
-    Weight.sum(:amount)
+    current_user.weights.sum(:amount)
   end
 
   def average

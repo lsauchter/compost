@@ -18,7 +18,7 @@ const WeightData = () => {
     fetch('weight', { method: 'GET' })
       .then((response) => response.json())
       .then((res) => {
-        updateData(res.data);
+        updateData(res);
       });
   };
 
