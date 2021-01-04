@@ -94,16 +94,11 @@ export default makeStyles((theme) => ({
   },
 
   weightData: {
-    margin: '94px auto 150px',
-    padding: 20,
+    margin: '94px auto 165px',
     maxWidth: '80%',
     background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
     textAlign: 'center',
     borderRadius: 8,
-  },
-
-  tableContainer: {
-    height: '100%',
     overflow: 'scroll',
   },
 
