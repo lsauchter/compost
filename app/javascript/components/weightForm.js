@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-const WeightForm = ({ totalWeight, updateWeight }) => {
+const WeightForm = ({ totalWeight, averageWeight, updateWeight }) => {
   const [weight, updateFormWeight] = useState('');
   const [errors, updateErrors] = useState(null);
   const classes = useStyles();
@@ -46,9 +46,13 @@ const WeightForm = ({ totalWeight, updateWeight }) => {
             Add
           </Button>
         </div>
-        <div>
-          Total Weight
+        <div className={classes.weightNumberContainer}>
+          Total compost
           <p className={classes.weightNumber}>{totalWeight} pounds</p>
+        </div>
+        <div className={classes.weightNumberContainer}>
+          Average compost per week
+          <p className={classes.weightNumber}>{averageWeight} pounds</p>
         </div>
       </div>
     </>
@@ -57,11 +61,13 @@ const WeightForm = ({ totalWeight, updateWeight }) => {
 
 WeightForm.propTypes = {
   totalWeight: PropTypes.string,
+  averageWeight: PropTypes.string,
   updateWeight: PropTypes.func.isRequired,
 };
 
 WeightForm.defaultProps = {
   totalWeight: '',
+  averageWeight: '',
 };
 
 export default WeightForm;

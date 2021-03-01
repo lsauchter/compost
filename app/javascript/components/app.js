@@ -9,14 +9,14 @@ import WeightForm from './weightForm';
 import WeightData from './weightData';
 
 const App = () => {
-  const [totalWeight, updateTotalWeight] = useState(null);
+  const [weightInfo, updateWeightInfo] = useState(null);
   const [photo, updatePhoto] = useState(null);
 
   const getWeight = () => {
     fetch('weight/all', { method: 'GET' })
       .then((response) => response.json())
       .then((res) => {
-        updateTotalWeight(res);
+        updateWeightInfo(res);
       });
   };
 
@@ -56,7 +56,11 @@ const App = () => {
     return (
       <Switch>
         <Route exact path="/">
-          <WeightForm totalWeight={totalWeight} updateWeight={onUpdateWeight} />
+          <WeightForm
+            totalWeight={weightInfo?.total}
+            averageWeight={weightInfo?.average}
+            updateWeight={onUpdateWeight}
+          />
         </Route>
         <Route path="/history" component={WeightData} />
         <Route render={() => <h1>Page not found</h1>} />

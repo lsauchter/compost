@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
     padding: 20,
     width: 300,
     maxWidth: '80%',
-    height: 300,
+    height: 400,
     background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
     textAlign: 'center',
     borderRadius: 8,
@@ -72,7 +72,7 @@ export default makeStyles((theme) => ({
   weightNumber: {
     fontWeight: 600,
     fontSize: 20,
-    marginBottom: 0,
+    margin: '10px 0 0',
   },
 
   unsplash: {

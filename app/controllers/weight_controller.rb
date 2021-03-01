@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class WeightController < ApplicationController
+  WEEK_SECONDS = 604_800
+
   def index
     data = Weight.order(created_at: :desc)
     json = {
@@ -9,7 +13,11 @@ class WeightController < ApplicationController
   end
 
   def show
-    respond_with total, location: nil
+    json = {
+      total: total,
+      average: average
+    }
+    respond_with json, location: nil
   end
 
   def create
@@ -43,5 +51,10 @@ class WeightController < ApplicationController
 
   def total
     Weight.sum(:amount)
+  end
+
+  def average
+    weeks = (Weight.last.created_at - Weight.first.created_at) / WEEK_SECONDS
+    (total / weeks.round).round(2)
   end
 end

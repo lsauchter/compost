@@ -19,6 +19,7 @@
     "react_ujs": "^2.6.1"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.13.8",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
