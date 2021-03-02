@@ -12,16 +12,8 @@ import WeightForm from './weightForm';
 import WeightData from './weightData';
 
 const App = ({ userId }) => {
-  const [weightInfo, updateWeightInfo] = useState(null);
   const [photo, updatePhoto] = useState(null);
-
-  const getWeight = () => {
-    fetch('weight/all', { method: 'GET' })
-      .then((response) => response.json())
-      .then((res) => {
-        updateWeightInfo(res);
-      });
-  };
+  console.log(userId);
 
   const getBackground = () => {
     fetch('https://api.unsplash.com/photos/random?query=leaves', {
@@ -37,42 +29,17 @@ const App = ({ userId }) => {
   };
 
   useEffect(() => {
-    getWeight();
     getBackground();
   }, []);
-
-  const onUpdateWeight = (weight) => {
-    fetch('weight', {
-      method: 'POST',
-      body: JSON.stringify({ amount: weight }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        getWeight();
-      });
-  };
 
   function renderMainRoutes() {
     return (
       <Switch>
         <Route exact path="/">
-          <Landing user={userId} />
+          <Landing userId={userId} />
         </Route>
         <Route path="/users/sign_in" component={SignIn} />
-        {userId ? (
-          <Route path="/home">
-            <WeightForm
-              totalWeight={weightInfo?.total}
-              averageWeight={weightInfo?.average}
-              updateWeight={onUpdateWeight}
-            />
-          </Route>
-        ) : (
-          <Redirect to="/" />
-        )}
+        {userId ? <Route path="/app" component={WeightForm} /> : <Redirect to="/" />}
         {userId ? <Route path="/history" component={WeightData} /> : <Redirect exact to="/" />}
         <Route render={() => <h1 style={{ marginTop: 94 }}>Page not found</h1>} />
       </Switch>

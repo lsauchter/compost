@@ -9,11 +9,7 @@ class WeightController < ApplicationController
   end
 
   def show
-    json = {
-      total: total,
-      average: average
-    }
-    respond_with json, location: nil
+    render json: { total: total, average: average }, location: nil
   end
 
   def create
@@ -50,7 +46,7 @@ class WeightController < ApplicationController
   end
 
   def average
-    weeks = (Weight.last.created_at - Weight.first.created_at) / WEEK_SECONDS
+    weeks = (current_user.weights.last.created_at - current_user.weights.first.created_at) / WEEK_SECONDS
     (total / weeks.round).round(2)
   end
 end

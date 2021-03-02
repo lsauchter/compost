@@ -10,29 +10,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import Table from '@material-ui/core/Table';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import IconButton from '@material-ui/core/IconButton';
-// import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
 import useStyles from './useStyles';
 
 const Landing = ({ userId }) => {
   const classes = useStyles();
+  // const history = useHistory();
+
+  const handleLogout = () => {
+    const token = document.querySelector('meta[name="csrf-token"]');
+
+    fetch('user_session', {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-Token': token?.content,
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      console.log(response);
+      if (response.ok) {
+        console.log('logout');
+      }
+    });
+  };
 
   return (
     <>
       <div className={classes.weightData}>
         {/* {errors && <div className={classes.error}>{errors}</div>} */}
         {userId ? (
-          <div>Logout</div>
+          <Button onClick={handleLogout}>Logout</Button>
         ) : (
           <div>
-            <div>Login</div>
-            <div>Sign Up</div>
+            <Button component={Link} to="/users/sign_in">
+              Login
+            </Button>
+            <Button>Sign Up</Button>
           </div>
         )}
         <h1>Welcome</h1>

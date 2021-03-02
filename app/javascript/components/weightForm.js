@@ -1,13 +1,39 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-const WeightForm = ({ totalWeight, averageWeight, updateWeight }) => {
+const WeightForm = () => {
+  const [weightInfo, updateWeightInfo] = useState(null);
   const [weight, updateFormWeight] = useState('');
   const [errors, updateErrors] = useState(null);
   const classes = useStyles();
+
+  const getWeight = () => {
+    fetch('weight/all', { method: 'GET' })
+      .then((response) => response.json())
+      .then((res) => {
+        updateWeightInfo(res);
+      });
+  };
+
+  useEffect(() => {
+    getWeight();
+  }, []);
+
+  const updateWeight = () => {
+    fetch('weight', {
+      method: 'POST',
+      body: JSON.stringify({ amount: weight }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then(() => {
+        getWeight();
+      });
+  };
 
   const handleSubmit = () => {
     if (weight) {
@@ -48,26 +74,15 @@ const WeightForm = ({ totalWeight, averageWeight, updateWeight }) => {
         </div>
         <div className={classes.weightNumberContainer}>
           Total compost
-          <p className={classes.weightNumber}>{totalWeight} pounds</p>
+          <p className={classes.weightNumber}>{weightInfo?.total} pounds</p>
         </div>
         <div className={classes.weightNumberContainer}>
           Average compost per week
-          <p className={classes.weightNumber}>{averageWeight} pounds</p>
+          <p className={classes.weightNumber}>{weightInfo?.average} pounds</p>
         </div>
       </div>
     </>
   );
-};
-
-WeightForm.propTypes = {
-  totalWeight: PropTypes.string,
-  averageWeight: PropTypes.string,
-  updateWeight: PropTypes.func.isRequired,
-};
-
-WeightForm.defaultProps = {
-  totalWeight: '',
-  averageWeight: '',
 };
 
 export default WeightForm;

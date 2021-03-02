@@ -8,7 +8,6 @@ import useStyles from './useStyles';
 
 const Layout = ({ children, photo }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const classes = useStyles();
 
   const handleMenu = (event) => {
@@ -19,7 +18,6 @@ const Layout = ({ children, photo }) => {
     setAnchorEl(null);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -27,7 +25,7 @@ const Layout = ({ children, photo }) => {
       id="options-menu"
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={open}
+      open={Boolean(anchorEl)}
       onClose={handleClose}
     >
       <MenuItem onClick={handleClose}>
@@ -45,7 +43,7 @@ const Layout = ({ children, photo }) => {
 
   return (
     <>
-      <AppBar className={classes.header}>
+      <AppBar className={classes.header} color="primary">
         <Toolbar>
           <IconButton
             edge="start"

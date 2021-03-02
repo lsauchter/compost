@@ -5,12 +5,8 @@ export default makeStyles((theme) => ({
     body: {
       margin: 0,
       color: `${theme.palette.gray} !important`,
-      backgroundColor: theme.palette.darkGreen,
+      backgroundColor: theme.palette.primary.main,
     },
-  },
-
-  header: {
-    backgroundColor: theme.palette.darkGreen,
   },
 
   title: {
@@ -30,7 +26,7 @@ export default makeStyles((theme) => ({
 
   navLink: {
     textDecoration: 'none',
-    color: theme.palette.darkGreen,
+    color: theme.palette.primary.main,
   },
 
   weightCard: {
@@ -39,7 +35,7 @@ export default makeStyles((theme) => ({
     width: 300,
     maxWidth: '80%',
     height: 400,
-    background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
+    background: `linear-gradient(${theme.palette.secondary.main}dd, ${theme.palette.secondary.main}dd)`,
     textAlign: 'center',
     borderRadius: 8,
     display: 'flex',
@@ -64,7 +60,7 @@ export default makeStyles((theme) => ({
   },
 
   button: {
-    color: theme.palette.darkGreen,
+    color: theme.palette.primary.main,
     height: 56,
     marginLeft: 15,
   },
@@ -78,7 +74,7 @@ export default makeStyles((theme) => ({
   unsplash: {
     position: 'fixed',
     bottom: 10,
-    color: theme.palette.darkGreen,
+    color: theme.palette.primary.main,
     background: `linear-gradient(${theme.palette.gray}bb, ${theme.palette.gray}bb)`,
     padding: '5px 10px',
     borderRadius: 8,
@@ -96,7 +92,7 @@ export default makeStyles((theme) => ({
   weightData: {
     margin: '94px auto 165px',
     maxWidth: '80%',
-    background: `linear-gradient(${theme.palette.lightGreen}dd, ${theme.palette.lightGreen}dd)`,
+    background: `linear-gradient(${theme.palette.secondary.main}dd, ${theme.palette.secondary.main}dd)`,
     textAlign: 'center',
     borderRadius: 8,
     overflow: 'scroll',
@@ -108,7 +104,7 @@ export default makeStyles((theme) => ({
     '& th': {
       color: theme.palette.gray,
       fontWeight: 600,
-      background: theme.palette.darkGreen,
+      background: theme.palette.primary.main,
     },
     '& td': {
       color: theme.palette.gray,
