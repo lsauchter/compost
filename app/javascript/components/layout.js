@@ -38,6 +38,11 @@ const Layout = ({ children, photo }) => {
           All Data
         </Link>
       </MenuItem>
+      <MenuItem>
+        <a href="/users/sign_out" data-method="delete" className={classes.navLink}>
+          Logout
+        </a>
+      </MenuItem>
     </Menu>
   );
 

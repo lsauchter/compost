@@ -9,31 +9,15 @@ import useStyles from './useStyles';
 
 const Landing = ({ userId }) => {
   const classes = useStyles();
-  // const history = useHistory();
-
-  const handleLogout = () => {
-    const token = document.querySelector('meta[name="csrf-token"]');
-
-    fetch('/users/sign_out', {
-      method: 'DELETE',
-      headers: {
-        'X-CSRF-Token': token?.content,
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {
-      console.log(response);
-      if (response.ok) {
-        console.log('logout');
-      }
-    });
-  };
 
   return (
     <>
       <div className={classes.weightData}>
         {/* {errors && <div className={classes.error}>{errors}</div>} */}
         {userId ? (
-          <Button onClick={handleLogout}>Logout</Button>
+          <a href="/users/sign_out" data-method="delete" className={classes.navLink}>
+            Logout
+          </a>
         ) : (
           <div>
             <Button component={Link} to="/users/sign_in">
