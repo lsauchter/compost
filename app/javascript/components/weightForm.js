@@ -27,18 +27,26 @@ const WeightForm = () => {
       body: JSON.stringify({ amount: weight }),
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content,
       },
     })
-      .then((response) => response.json())
-      .then(() => {
-        getWeight();
+      .then((response) => {
+        if (response.ok) {
+          updateFormWeight('');
+          getWeight();
+        } else {
+          throw new Error(response);
+        }
+      })
+      .catch((err) => {
+        updateErrors(err);
+        setTimeout(() => updateErrors(null), 10000);
       });
   };
 
   const handleSubmit = () => {
     if (weight) {
       updateWeight(weight);
-      updateFormWeight('');
     } else {
       updateErrors('Please enter a weight');
       setTimeout(() => updateErrors(null), 10000);
@@ -54,7 +62,7 @@ const WeightForm = () => {
   return (
     <>
       <div className={classes.weightCard}>
-        <div>
+        <div className={classes.weightFormContainer}>
           <TextField
             id="add_weight"
             label="Weight"
@@ -65,7 +73,7 @@ const WeightForm = () => {
             }}
             value={weight}
             onChange={(e) => updateFormWeight(e.target.value)}
-            className={classes.weightForm}
+            className={classes.form}
             helperText={errors}
           />
           <Button variant="contained" className={classes.button} onClick={() => handleSubmit()}>

@@ -31,6 +31,7 @@ const WeightData = () => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content,
       },
     })
       .then((response) => {

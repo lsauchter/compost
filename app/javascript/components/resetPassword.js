@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 
 import useStyles from './useStyles';
 
-const SignIn = () => {
+const ResetPassword = () => {
   const classes = useStyles();
 
   const authenticityToken = document.querySelector('meta[name="csrf-token"]')?.content;
@@ -15,44 +15,28 @@ const SignIn = () => {
       <div className={classes.weightCard}>
         {/* {errors && <div className={classes.error}>{errors}</div>} */}
         <h1>Log In</h1>
-        <form action="/users/sign_in" method="post">
+        <form action="/users/password" method="post">
           <div>
             <input type="hidden" name="authenticity_token" value={authenticityToken} />
             <TextField
               name="user[email]"
+              label="Email"
               placeholder="Enter email address"
               autoComplete="username"
               id="email"
-              label="Email"
-              variant="outlined"
               className={classes.form}
             />
-            <TextField
-              placeholder="Enter password"
-              name="user[password]"
-              type="password"
-              autoComplete="current-password"
-              id="password"
-              label="Password"
-              variant="outlined"
-              className={classes.form}
-            />
-            <div className={classes.forgotPassword}>
-              <Button component={Link} to="/users/password/new" className={classes.link}>
-                Forgot Password
-              </Button>
-            </div>
           </div>
 
           <div className={classes.buttons}>
             <div className={classes.button}>
-              <Button component={Link} to="/users/sign_up" className={classes.link}>
+              <Button component={Link} to="/users/sign_up">
                 Sign Up
               </Button>
             </div>
             <div className={classes.button}>
-              <Button variant="contained" type="submit" fullWidth>
-                Login
+              <Button size="large" variant="contained" type="submit" fullWidth>
+                Reset Password
               </Button>
             </div>
           </div>
@@ -62,4 +46,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ResetPassword;

@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
       margin: 0,
       color: `${theme.palette.gray} !important`,
       backgroundColor: theme.palette.primary.main,
+      height: '100vh',
     },
   },
 
@@ -44,7 +45,12 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
   },
 
-  weightForm: {
+  weightFormContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  form: {
     '& label.Mui-focused, .MuiFormHelperText-contained, .MuiInputBase-input, .MuiInputLabel-outlined': {
       color: theme.palette.gray,
     },
@@ -56,13 +62,22 @@ export default makeStyles((theme) => ({
         borderColor: theme.palette.gray,
       },
     },
+    '& input:-webkit-autofill': {
+      '-webkit-box-shadow': `0 0 0 30px ${theme.palette.secondary.main} inset !important`,
+      '-webkit-text-fill-color': `${theme.palette.gray} !important`,
+    },
     maxWidth: 'calc(100% - 81px)',
+    marginBottom: '10px !important',
   },
 
   button: {
     color: theme.palette.primary.main,
     height: 56,
-    marginLeft: 15,
+    // marginLeft: 15,
+  },
+
+  link: {
+    color: theme.palette.gray,
   },
 
   weightNumber: {

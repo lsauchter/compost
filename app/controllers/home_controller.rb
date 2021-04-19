@@ -7,10 +7,5 @@ class HomeController < ApplicationController
     if current_user
       @user = current_user
     end
-    puts current_user.inspect
-    puts @user.inspect
-  end
-
-  def app
   end
 end

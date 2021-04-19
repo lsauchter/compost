@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import useStyles from './useStyles';
 
-const Layout = ({ children, photo }) => {
+const Layout = ({ children, photo, userId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
+  const history = useHistory();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +17,33 @@ const Layout = ({ children, photo }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const loginDemo = (event) => {
+    event.preventDefault();
+    fetch('/users/sign_in', {
+      method: 'POST',
+      body: JSON.stringify({
+        user: { email: 'test@test.com', password: 'password' },
+        authenticity_token: document.querySelector('meta[name="csrf-token"]')?.content,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response);
+        } else {
+          history.go('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // updateErrors(err);
+        // setTimeout(() => updateErrors(null), 10000);
+      });
+    return true;
   };
 
   const renderMenu = (
@@ -38,9 +66,27 @@ const Layout = ({ children, photo }) => {
           All Data
         </Link>
       </MenuItem>
+      {userId ? (
+        <MenuItem>
+          <a href="/users/sign_out" data-method="delete" className={classes.navLink}>
+            Logout
+          </a>
+        </MenuItem>
+      ) : (
+        <MenuItem>
+          <a href="/users/sign_in" className={classes.navLink}>
+            Sign In
+          </a>
+        </MenuItem>
+      )}
       <MenuItem>
-        <a href="/users/sign_out" data-method="delete" className={classes.navLink}>
-          Logout
+        <a
+          href="/"
+          onClick={(event) => loginDemo(event)}
+          className={classes.navLink}
+          variant="text"
+        >
+          Demo
         </a>
       </MenuItem>
     </Menu>
@@ -89,11 +135,13 @@ const Layout = ({ children, photo }) => {
 Layout.propTypes = {
   photo: PropTypes.shape(),
   children: PropTypes.node,
+  userId: PropTypes.number,
 };
 
 Layout.defaultProps = {
   photo: {},
   children: {},
+  userId: null,
 };
 
 export default Layout;
