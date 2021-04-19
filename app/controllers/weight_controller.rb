@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WeightController < ApplicationController
+  before_action :authenticate_user!
+
   WEEK_SECONDS = 604_800
 
   def index

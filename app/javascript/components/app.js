@@ -40,7 +40,7 @@ const App = ({ userId }) => {
         </Route>
         <Route path="/users/sign_in" component={SignIn} />
         {userId ? <Route path="/app" component={WeightForm} /> : <Redirect to="/" />}
-        {userId ? <Route path="/history" component={WeightData} /> : <Redirect exact to="/" />}
+        {userId ? <Route path="/history" component={WeightData} /> : <Redirect to="/" />}
         <Route render={() => <h1 style={{ marginTop: 94 }}>Page not found</h1>} />
       </Switch>
     );

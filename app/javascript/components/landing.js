@@ -1,11 +1,4 @@
 /* eslint-disable react/no-unescaped-entities */
-// <% if user_signed_in? %>
-//     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-//   <% else %>
-//     <%= link_to('Login', new_user_session_path)  %> |
-//     <%= link_to('Sign Up', new_user_registration_path)  %>
-//   <% end %>
-// </nav>
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -21,7 +14,7 @@ const Landing = ({ userId }) => {
   const handleLogout = () => {
     const token = document.querySelector('meta[name="csrf-token"]');
 
-    fetch('user_session', {
+    fetch('/users/sign_out', {
       method: 'DELETE',
       headers: {
         'X-CSRF-Token': token?.content,
@@ -46,7 +39,9 @@ const Landing = ({ userId }) => {
             <Button component={Link} to="/users/sign_in">
               Login
             </Button>
-            <Button>Sign Up</Button>
+            <Button component={Link} to="/users/sign_up">
+              Sign Up
+            </Button>
           </div>
         )}
         <h1>Welcome</h1>
