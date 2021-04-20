@@ -17,6 +17,10 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
 
+  heading: {
+    marginTop: 0,
+  },
+
   body: {
     height: '100vh',
     backgroundSize: 'cover',
@@ -43,6 +47,9 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
+    '& form': {
+      width: '100%',
+    },
   },
 
   weightFormContainer: {
@@ -68,6 +75,13 @@ export default makeStyles((theme) => ({
     },
     maxWidth: 'calc(100% - 81px)',
     marginBottom: '10px !important',
+  },
+
+  checkbox: {
+    color: theme.palette.gray,
+    '&>span': {
+      color: theme.palette.gray,
+    },
   },
 
   button: {

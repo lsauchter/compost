@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Button, Checkbox, FormControlLabel, TextField } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
 const SignIn = () => {
+  const [checkbox, updateCheckbox] = useState(0);
   const classes = useStyles();
 
   const authenticityToken = document.querySelector('meta[name="csrf-token"]')?.content;
@@ -14,7 +14,7 @@ const SignIn = () => {
     <>
       <div className={classes.weightCard}>
         {/* {errors && <div className={classes.error}>{errors}</div>} */}
-        <h1>Log In</h1>
+        <h1 className={classes.heading}>Log In</h1>
         <form action="/users/sign_in" method="post">
           <div>
             <input type="hidden" name="authenticity_token" value={authenticityToken} />
@@ -25,6 +25,7 @@ const SignIn = () => {
               id="email"
               label="Email"
               variant="outlined"
+              required
               className={classes.form}
             />
             <TextField
@@ -35,7 +36,19 @@ const SignIn = () => {
               id="password"
               label="Password"
               variant="outlined"
+              required
               className={classes.form}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={() => updateCheckbox(checkbox === 1 ? 0 : 1)}
+                  name="user[remember_me]"
+                  className={classes.checkbox}
+                  value={checkbox}
+                />
+              }
+              label="Remember Me"
             />
             <div className={classes.forgotPassword}>
               <Button component={Link} to="/users/password/new" className={classes.link}>

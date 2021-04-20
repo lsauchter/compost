@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import theme from './theme';
 
 import Layout from './layout';
+import EditPassword from './editPassword';
 import ResetPassword from './resetPassword';
 import SignIn from './signIn';
 import WeightForm from './weightForm';
@@ -36,6 +37,7 @@ const App = ({ userId }) => {
       <Switch>
         <Route path="/users/sign_in" component={SignIn} />
         <Route path="/users/password/new" component={ResetPassword} />
+        <Route path="/users/password/edit" component={EditPassword} />
         {userId ? (
           <Route exact path="/" component={WeightForm} />
         ) : (
