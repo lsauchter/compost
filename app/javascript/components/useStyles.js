@@ -12,9 +12,12 @@ export default makeStyles((theme) => ({
 
   title: {
     margin: 'auto',
-    paddingRight: 48,
+    paddingRight: 15,
     color: theme.palette.gray,
     textDecoration: 'none',
+    position: 'relative',
+    right: 14,
+    textTransform: 'none',
   },
 
   heading: {
@@ -25,6 +28,9 @@ export default makeStyles((theme) => ({
     height: '100vh',
     backgroundSize: 'cover',
     overflow: 'auto',
+  },
+
+  container: {
     display: 'flex',
     justifyContent: 'center',
   },
@@ -35,11 +41,14 @@ export default makeStyles((theme) => ({
   },
 
   weightCard: {
-    margin: '94px auto 0',
+    marginTop: 94,
+    marginBottom: 60,
     padding: 20,
     width: 300,
     maxWidth: '80%',
-    height: 400,
+    minHeight: 400,
+    maxHeight: 'calc(100vh - 194px)',
+    overflow: 'scroll',
     background: `linear-gradient(${theme.palette.secondary.main}dd, ${theme.palette.secondary.main}dd)`,
     textAlign: 'center',
     borderRadius: 8,
@@ -86,8 +95,11 @@ export default makeStyles((theme) => ({
 
   button: {
     color: theme.palette.primary.main,
-    height: 56,
-    // marginLeft: 15,
+    marginBottom: 10,
+  },
+
+  buttons: {
+    width: '100%',
   },
 
   link: {
@@ -119,12 +131,9 @@ export default makeStyles((theme) => ({
   },
 
   weightData: {
-    margin: '94px auto 165px',
-    maxWidth: '80%',
-    background: `linear-gradient(${theme.palette.secondary.main}dd, ${theme.palette.secondary.main}dd)`,
-    textAlign: 'center',
-    borderRadius: 8,
-    overflow: 'scroll',
+    display: 'block',
+    width: 340,
+    padding: 0,
   },
 
   table: {
@@ -134,6 +143,7 @@ export default makeStyles((theme) => ({
       color: theme.palette.gray,
       fontWeight: 600,
       background: theme.palette.primary.main,
+      padding: '30px 20px',
     },
     '& td': {
       color: theme.palette.gray,
@@ -141,5 +151,9 @@ export default makeStyles((theme) => ({
     '& button': {
       color: theme.palette.gray,
     },
+  },
+
+  notification: {
+    maxWidth: 300,
   },
 }));

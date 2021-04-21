@@ -9,10 +9,12 @@ import Layout from './layout';
 import EditPassword from './editPassword';
 import ResetPassword from './resetPassword';
 import SignIn from './signIn';
+import SignUp from './signUp';
+import SignUpConfirmation from './signUpConfirmation';
 import WeightForm from './weightForm';
 import WeightData from './weightData';
 
-const App = ({ userId }) => {
+const App = ({ userId, notifications }) => {
   const [photo, updatePhoto] = useState(null);
 
   const getBackground = () => {
@@ -38,6 +40,8 @@ const App = ({ userId }) => {
         <Route path="/users/sign_in" component={SignIn} />
         <Route path="/users/password/new" component={ResetPassword} />
         <Route path="/users/password/edit" component={EditPassword} />
+        <Route path="/users/sign_up" component={SignUp} />
+        <Route path="/users/confirmation/new" component={SignUpConfirmation} />
         {userId ? (
           <Route exact path="/" component={WeightForm} />
         ) : (
@@ -57,7 +61,7 @@ const App = ({ userId }) => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Typography component="div">
-          <Layout photo={photo} userId={userId}>
+          <Layout photo={photo} userId={userId} notifications={notifications}>
             {renderMainRoutes()}
           </Layout>
         </Typography>
@@ -68,10 +72,12 @@ const App = ({ userId }) => {
 
 App.propTypes = {
   userId: PropTypes.number,
+  notifications: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
 };
 
 App.defaultProps = {
   userId: null,
+  notifications: null,
 };
 
 export default App;

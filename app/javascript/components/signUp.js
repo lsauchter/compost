@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
+import { Button, TextField } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-const EditPassword = () => {
+const SignUp = () => {
   const [password, updatePassword] = useState('');
   const [passwordConfirmation, updatePasswordConfirmation] = useState('');
   const classes = useStyles();
 
   const authenticityToken = document.querySelector('meta[name="csrf-token"]')?.content;
-  const resetPasswordToken = useLocation().search.split('=') || [];
 
   return (
     <>
       <div className={classes.weightCard}>
-        <h1>Set Your Password</h1>
-        <form id="form" action="/users/password" method="post">
+        <h1 className={classes.heading}>Sign Up</h1>
+        <form id="form" action="/users" method="post">
           <div>
             <input type="hidden" name="authenticity_token" value={authenticityToken} />
-            <input type="hidden" name="user[reset_password_token]" value={resetPasswordToken[1]} />
-            <input type="hidden" name="_method" value="put" />
+            <TextField
+              name="user[email]"
+              placeholder="Enter email address"
+              autoComplete="username"
+              id="email"
+              label="Email"
+              variant="outlined"
+              required
+              className={classes.form}
+            />
             <TextField
               placeholder="Enter password"
               name="user[password]"
@@ -39,12 +45,12 @@ const EditPassword = () => {
               }
             />
             <TextField
-              placeholder="Confirm password"
+              placeholder="Enter password"
               name="user[password_confirmation]"
               type="password"
               autoComplete="new-password"
               id="password"
-              label="Password"
+              label="Confirm Password"
               variant="outlined"
               required
               className={classes.form}
@@ -54,15 +60,20 @@ const EditPassword = () => {
             />
           </div>
         </form>
-        <div className={classes.buttons}>
+        <div>
           <div className={classes.button}>
             <Button component={Link} to="/users/sign_in" className={classes.link}>
               Back to Sign In
             </Button>
           </div>
           <div className={classes.button}>
+            <Button component={Link} to="/users/confirmation/new" className={classes.link}>
+              Didn't receive confirmation instructions?
+            </Button>
+          </div>
+          <div className={classes.button}>
             <Button variant="contained" type="submit" fullWidth form="form">
-              Set Password
+              Sign Up
             </Button>
           </div>
         </div>
@@ -71,4 +82,4 @@ const EditPassword = () => {
   );
 };
 
-export default EditPassword;
+export default SignUp;

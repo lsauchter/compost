@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Snackbar,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import useStyles from './useStyles';
 
-const Layout = ({ children, photo, userId }) => {
+const Layout = ({ children, photo, userId, notifications }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [showNotification, updateShowNotification] = useState(true);
   const classes = useStyles();
-  const history = useHistory();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,31 +29,25 @@ const Layout = ({ children, photo, userId }) => {
     setAnchorEl(null);
   };
 
-  const loginDemo = (event) => {
-    event.preventDefault();
-    fetch('/users/sign_in', {
-      method: 'POST',
-      body: JSON.stringify({
-        user: { email: 'test@test.com', password: 'password' },
-        authenticity_token: document.querySelector('meta[name="csrf-token"]')?.content,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response);
-        } else {
-          history.go('/');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        // updateErrors(err);
-        // setTimeout(() => updateErrors(null), 10000);
-      });
-    return true;
+  const notification = (message, i) => {
+    return (
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        autoHideDuration={10000}
+        open={showNotification}
+        onClose={() => updateShowNotification(false)}
+        key={i}
+        className={classes.notification}
+      >
+        <Alert
+          onClose={() => updateShowNotification(false)}
+          severity={message[0] === 'alert' ? 'error' : 'success'}
+          color={message[0] === 'alert' ? 'error' : 'info'}
+        >
+          {message[1]}
+        </Alert>
+      </Snackbar>
+    );
   };
 
   const renderMenu = (
@@ -61,11 +65,13 @@ const Layout = ({ children, photo, userId }) => {
           Home
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Link to="/history" className={classes.navLink}>
-          All Data
-        </Link>
-      </MenuItem>
+      {userId && (
+        <MenuItem onClick={handleClose}>
+          <Link to="/history" className={classes.navLink}>
+            All Data
+          </Link>
+        </MenuItem>
+      )}
       {userId ? (
         <MenuItem>
           <a href="/users/sign_out" data-method="delete" className={classes.navLink}>
@@ -73,22 +79,25 @@ const Layout = ({ children, photo, userId }) => {
           </a>
         </MenuItem>
       ) : (
-        <MenuItem>
-          <a href="/users/sign_in" className={classes.navLink}>
+        <MenuItem onClick={handleClose}>
+          <Link to="/users/sign_in" className={classes.navLink}>
             Sign In
-          </a>
+          </Link>
         </MenuItem>
       )}
-      <MenuItem>
-        <a
-          href="/"
-          onClick={(event) => loginDemo(event)}
-          className={classes.navLink}
-          variant="text"
-        >
-          Demo
-        </a>
-      </MenuItem>
+      {!userId && (
+        <MenuItem onClick={handleClose}>
+          <Link
+            to={{
+              pathname: '/users/sign_in',
+              state: { email: 'test@test.com', password: 'password' },
+            }}
+            className={classes.navLink}
+          >
+            Demo
+          </Link>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -96,20 +105,12 @@ const Layout = ({ children, photo, userId }) => {
     <>
       <AppBar className={classes.header} color="primary">
         <Toolbar>
-          <IconButton
-            edge="start"
-            // className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleMenu}
-          >
+          <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={handleMenu}>
             <MenuIcon />
           </IconButton>
-          <Link to="/" className={classes.title}>
-            <Typography variant="h1" noWrap>
-              Compost
-            </Typography>
-          </Link>
+          <Button component="a" href="/" className={classes.title}>
+            <Typography variant="h1">Compost</Typography>
+          </Button>
         </Toolbar>
       </AppBar>
       {renderMenu}
@@ -117,16 +118,19 @@ const Layout = ({ children, photo, userId }) => {
         className={classes.body}
         style={photo && { backgroundImage: `url(${photo.urls.regular})` }}
       >
-        {children}
-        {photo && (
-          <div className={classes.unsplash}>
-            Photo by{' '}
-            <a href={`${photo.user.links.html}?utm_source=compost&utm_medium=referral`}>
-              {photo.user.name}
-            </a>{' '}
-            on <a href="https://unsplash.com/?utm_source=compost&utm_medium=referral">Unsplash</a>
-          </div>
-        )}
+        <div className={classes.container}>
+          {notifications.length > 0 && notifications.map((message, i) => notification(message, i))}
+          {children}
+          {photo && (
+            <div className={classes.unsplash}>
+              Photo by{' '}
+              <a href={`${photo.user.links.html}?utm_source=compost&utm_medium=referral`}>
+                {photo.user.name}
+              </a>{' '}
+              on <a href="https://unsplash.com/?utm_source=compost&utm_medium=referral">Unsplash</a>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
@@ -136,12 +140,14 @@ Layout.propTypes = {
   photo: PropTypes.shape(),
   children: PropTypes.node,
   userId: PropTypes.number,
+  notifications: PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]),
 };
 
 Layout.defaultProps = {
   photo: {},
   children: {},
   userId: null,
+  notifications: null,
 };
 
 export default Layout;

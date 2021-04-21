@@ -48,7 +48,7 @@ const WeightData = () => {
 
   return (
     <>
-      <div className={classes.weightData}>
+      <div className={`${classes.weightCard} ${classes.weightData}`}>
         {errors && <div className={classes.error}>{errors}</div>}
         <div className={classes.tableContainer}>
           <Table stickyHeader className={classes.table}>
@@ -90,9 +90,5 @@ const WeightData = () => {
     </>
   );
 };
-
-WeightData.propTypes = {};
-
-WeightData.defaultProps = {};
 
 export default WeightData;
