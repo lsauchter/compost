@@ -12,6 +12,8 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
         <!-- Following will make the react components available to our layout -->
     <%= javascript_pack_tag 'application' %>
+    <%= favicon_link_tag asset_path('leaf.svg'), type: 'image/svg+xml' %>
+    <%= favicon_link_tag asset_path('leaf.svg'), rel: 'apple-touch-icon', type: 'image/svg+xml' %>
   </head>
 
   <body>
